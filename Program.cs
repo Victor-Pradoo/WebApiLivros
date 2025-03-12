@@ -14,10 +14,12 @@ builder.Services.AddSwaggerGen();
 //afirma que os métodos que estão em AutorInterface são implementados no AutorService
 builder.Services.AddScoped<AutorInterface, AutorService>();
 
+var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-
+    options.UseSqlServer(connectionString);
 });
 
 var app = builder.Build();
