@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi8_Livros.Data;
 using WebApi8_Livros.Services.Autor;
+using WebApi8_Livros.Services.Livro;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 //afirma que os métodos que estão em AutorInterface são implementados no AutorService
 builder.Services.AddScoped<AutorInterface, AutorService>();
+builder.Services.AddScoped<ILivroInterface, LivroService>();
 
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
     ?? builder.Configuration.GetConnectionString("DefaultConnection");
